@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+<!--    //End Points-->
+<!--    createActor: /soap/actors-->
+<!--    getActorById: /soap/actors/{id}-->
+<!--    updateActor: /soap/actors/{id}-->
+<!--    deleteActor: /soap/actors/{id}-->
+<!--    getAllActors: /soap/actors-->
+<!--    createFilm: /soap/films-->
+<!--    getFilmById: /soap/films/{id}-->
+<!--    updateFilm: /soap/films/{id}-->
+<!--    deleteFilm: /soap/films/{id}-->
+<!--    getAllFilms: /soap/films-->
+
+<!--    <endpoint-->
+<!--        name="CalculatorWebService"-->
+<!--        implementation="gov.iti.jets.web.services.Calculator"-->
+<!--        url-pattern="/ws/calculator" />-->
+
+</endpoints>

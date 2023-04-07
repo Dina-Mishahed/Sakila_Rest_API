@@ -2,52 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="gov.iti.jets_SOAP_vs_REST_APIs_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>gov.iti.jets.ActorInfo</class>
-    <class>gov.iti.jets.Rental</class>
-    <class>gov.iti.jets.Payment</class>
-    <class>gov.iti.jets.Film</class>
-    <class>gov.iti.jets.Address</class>
-    <class>gov.iti.jets.StaffList</class>
-    <class>gov.iti.jets.FilmText</class>
-    <class>gov.iti.jets.Language</class>
-    <class>gov.iti.jets.FilmActor</class>
-    <class>gov.iti.jets.CustomerList</class>
-    <class>gov.iti.jets.SalesByFilmCategory</class>
-    <class>gov.iti.jets.City</class>
-    <class>gov.iti.jets.Category</class>
-    <class>gov.iti.jets.Customer</class>
-    <class>gov.iti.jets.Staff</class>
-    <class>gov.iti.jets.SalesByStore</class>
-    <class>gov.iti.jets.NicerButSlowerFilmList</class>
-    <class>gov.iti.jets.Inventory</class>
-    <class>gov.iti.jets.FilmList</class>
-    <class>gov.iti.jets.Store</class>
-    <class>gov.iti.jets.Country</class>
-    <class>gov.iti.jets.Actor</class>
-    <class>gov.iti.jets.FilmCategory</class>
-    <class>gov.iti.jets.entity.City</class>
-    <class>gov.iti.jets.entity.FilmText</class>
-    <class>gov.iti.jets.entity.Country</class>
-    <class>gov.iti.jets.entity.Language</class>
-    <class>gov.iti.jets.entity.Address</class>
-    <class>gov.iti.jets.entity.FilmActor</class>
-    <class>gov.iti.jets.entity.SalesByFilmCategory</class>
-    <class>gov.iti.jets.entity.Payment</class>
-    <class>gov.iti.jets.entity.Inventory</class>
-    <class>gov.iti.jets.entity.ActorInfo</class>
-    <class>gov.iti.jets.entity.FilmCategory</class>
-    <class>gov.iti.jets.entity.Staff</class>
-    <class>gov.iti.jets.entity.FilmList</class>
-    <class>gov.iti.jets.entity.Customer</class>
-    <class>gov.iti.jets.entity.Rental</class>
-    <class>gov.iti.jets.entity.Actor</class>
-    <class>gov.iti.jets.entity.CustomerList</class>
-    <class>gov.iti.jets.entity.StaffList</class>
-    <class>gov.iti.jets.entity.Store</class>
-    <class>gov.iti.jets.entity.SalesByStore</class>
-    <class>gov.iti.jets.entity.Film</class>
-    <class>gov.iti.jets.entity.NicerButSlowerFilmList</class>
-    <class>gov.iti.jets.entity.Category</class>
+
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
