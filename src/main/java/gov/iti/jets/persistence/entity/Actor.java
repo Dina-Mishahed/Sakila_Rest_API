@@ -27,12 +27,12 @@ import jakarta.persistence.TemporalType;
  */
 @Entity
 @Table(name = "actor")
-@NamedQueries({
-    @NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a"),
-    @NamedQuery(name = "Actor.findByActorId", query = "SELECT a FROM Actor a WHERE a.actorId = :actorId"),
-    @NamedQuery(name = "Actor.findByFirstName", query = "SELECT a FROM Actor a WHERE a.firstName = :firstName"),
-    @NamedQuery(name = "Actor.findByLastName", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName"),
-    @NamedQuery(name = "Actor.findByLastUpdate", query = "SELECT a FROM Actor a WHERE a.lastUpdate = :lastUpdate")})
+//@NamedQueries({
+//    @NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a"),
+//    @NamedQuery(name = "Actor.findByActorId", query = "SELECT a FROM Actor a WHERE a.actorId = :actorId"),
+//    @NamedQuery(name = "Actor.findByFirstName", query = "SELECT a FROM Actor a WHERE a.firstName = :firstName"),
+//    @NamedQuery(name = "Actor.findByLastName", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName"),
+//    @NamedQuery(name = "Actor.findByLastUpdate", query = "SELECT a FROM Actor a WHERE a.lastUpdate = :lastUpdate")})
 public class Actor implements Serializable {
 
     private static final long serialVersionUID = 1L;
