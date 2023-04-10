@@ -93,11 +93,10 @@
             <artifactId>modelmapper</artifactId>
             <version>3.0.0</version>
         </dependency>
-
         <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>3.0.0</version>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.4.2.Final</version>
         </dependency>
     </dependencies>
     <properties>
@@ -146,7 +145,19 @@
                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-maven-plugin</artifactId>
+                <version>1.4.2.Final</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>annotation-processor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
