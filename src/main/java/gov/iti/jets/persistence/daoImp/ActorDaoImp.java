@@ -4,7 +4,7 @@ import gov.iti.jets.persistence.dao.ActorDao;
 import gov.iti.jets.persistence.entity.Actor;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
 import gov.iti.jets.service.dto.ActorDto;
-//import gov.iti.jets.service.mapper.ActorMapper;
+import gov.iti.jets.service.mapper.ActorMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -18,34 +18,38 @@ import java.util.List;
 
 public class ActorDaoImp implements ActorDao {
     private static final EntityManager entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-//    private ActorMapper actorMapper;
-//    public ActorDaoImp(){
-//        actorMapper = Mappers.getMapper(ActorMapper.class);
-//    }
+    private ActorMapper actorMapper;
+    public ActorDaoImp(){
+        actorMapper = Mappers.getMapper(ActorMapper.class);
+    }
     @Override
     public Boolean createActor(ActorDto actorDto) {
-//        try {
-////            Actor actor = actorMapper.toEntity(actorDto);
-//            entityManager.getTransaction().begin();
-//            entityManager.persist(actor);
-//            entityManager.getTransaction().commit();
-//        } catch (Exception e) {
-//            entityManager.getTransaction().rollback();
-//            e.printStackTrace();
-//            return false;
-//        }
+        try {
+            Actor actor = actorMapper.toEntity(actorDto);
+            entityManager.getTransaction().begin();
+            entityManager.persist(actor);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
     @Override
-    public Actor getActorById(int id) {
+    public ActorDto getActorById(int id) {
         try {
+            System.out.println(".............................");
+
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
             Root<Actor> root = cq.from(Actor.class);
             cq.where(cb.equal(root.get("actorId"), id));
             TypedQuery<Actor> query = entityManager.createQuery(cq);
-            return query.getSingleResult();
+            System.out.println(".............................");
+            ActorDto actor = actorMapper.toDto(query.getSingleResult());
+            return actor;
         } catch (NoResultException e) {
             return null;
         }

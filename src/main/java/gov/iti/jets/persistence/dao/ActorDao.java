@@ -7,7 +7,7 @@ import gov.iti.jets.service.dto.ActorDto;
 
 public interface ActorDao {
     Boolean createActor(ActorDto actorDto);
-    Actor getActorById(int id);
+    ActorDto getActorById(int id);
     Actor updateActor(Actor actor);
     void deleteActor(int id);
     List<ActorDto> getAllActors();

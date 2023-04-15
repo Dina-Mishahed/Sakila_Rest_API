@@ -20,7 +20,7 @@ public class ActorRepository implements ActorDao {
     }
 
     @Override
-    public Actor getActorById(int id) {
+    public ActorDto getActorById(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getActorById'");
     }

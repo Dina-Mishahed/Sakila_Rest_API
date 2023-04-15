@@ -6,11 +6,18 @@ public class HibernateEntityManagerFactory {
 
     private static EntityManagerFactory entityManagerFactory;
 
-    private HibernateEntityManagerFactory() {}
+    private HibernateEntityManagerFactory() {
 
-    public static synchronized EntityManagerFactory getEntityManagerFactory() {
+    }
+    public static EntityManagerFactory getEntityManagerFactory() {
         if (entityManagerFactory == null) {
-            entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-sakila");
+            System.out.println("HibernateEntityManagerFactory Null.................................");
+            try{
+                entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
+                System.out.println("corect");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return entityManagerFactory;
     }
