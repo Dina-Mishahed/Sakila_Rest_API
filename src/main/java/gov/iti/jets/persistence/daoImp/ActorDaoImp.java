@@ -3,6 +3,8 @@ package gov.iti.jets.persistence.daoImp;
 import gov.iti.jets.persistence.dao.ActorDao;
 import gov.iti.jets.persistence.entity.Actor;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
+import gov.iti.jets.service.dto.ActorDto;
+//import gov.iti.jets.service.mapper.ActorMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -10,23 +12,29 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 public class ActorDaoImp implements ActorDao {
     private static final EntityManager entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
+//    private ActorMapper actorMapper;
+//    public ActorDaoImp(){
+//        actorMapper = Mappers.getMapper(ActorMapper.class);
+//    }
     @Override
-    public Actor createActor(Actor actor) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(actor);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            e.printStackTrace();
-            return null;
-        }
-        return actor;
+    public Boolean createActor(ActorDto actorDto) {
+//        try {
+////            Actor actor = actorMapper.toEntity(actorDto);
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(actor);
+//            entityManager.getTransaction().commit();
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            e.printStackTrace();
+//            return false;
+//        }
+        return true;
     }
 
     @Override
@@ -73,7 +81,7 @@ public class ActorDaoImp implements ActorDao {
     }
 
     @Override
-    public List<Actor> getAllActors() {
+    public List<ActorDto> getAllActors() {
         return null;
     }
 }
