@@ -42,14 +42,15 @@ public class ActorDaoImp implements ActorDao {
     }
 
     @Override
-    public Actor getActorById(int id) {
+    public ActorDto getActorById(int id) {
         try {
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
             Root<Actor> root = cq.from(Actor.class);
             cq.where(cb.equal(root.get("actorId"), id));
             TypedQuery<Actor> query = entityManager.createQuery(cq);
-            return query.getSingleResult();
+            ActorDto actorDto =  actorMapper.toDto(query.getSingleResult());
+            return actorDto;
         } catch (NoResultException e) {
             return null;
         }
