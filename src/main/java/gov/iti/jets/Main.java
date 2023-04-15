@@ -17,14 +17,13 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Hello World!");
-//        ActorDaoImp actorDaoImp = new ActorDaoImp();
+        ActorDaoImp actorDaoImp = new ActorDaoImp();
         ActorDto actorDto =  new ActorDto();
-        actorDto.setFirstName("dina");
-        System.out.println(actorDto.getFirstName());
-//        actorDto.setActorId(0);
-//        actorDto.setFirstName("aaaaaa");
-//        actorDto.setLastName("zzzzz");
-//        actorDto.setLastUpdate(new Date(122, 0, 1, 0, 0, 0));
-//        actorDaoImp.createActor(actorDto);
+//        actorDto.setFirstName("dina");
+//        System.out.println(actorDto.getFirstName());
+        actorDto.setFirstName("3la Ay");
+        actorDto.setLastName("Toz fik");
+        actorDto.setLastUpdate(new Date(122, 0, 1, 0, 0, 0));
+        actorDaoImp.createActor(actorDto);
     }
 }
