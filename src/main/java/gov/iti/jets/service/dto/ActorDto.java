@@ -11,8 +11,8 @@ import java.util.Date;
  */
 @XmlRootElement
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 public class ActorDto implements Serializable {

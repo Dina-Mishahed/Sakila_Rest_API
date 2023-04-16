@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Hello World!");
-        ActorDaoImp actorDaoImp = new ActorDaoImp();
+//        ActorDaoImp actorDaoImp = new ActorDaoImp();
 //        ActorDto actorDto =  new ActorDto();
 //        actorDto.setFirstName("dina");
 ////        System.out.println(actorDto.getFirstName());

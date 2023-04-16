@@ -36,11 +36,8 @@ Content-Type: text/xml
         xmlns:jets="http://service.jets.iti.gov/">
     <soap:Body>
         <jets:AddNewActor>
-            <arg0>
-                <firstName>PENELOPE</firstName>
-                <lastName>GUINESS</lastName>
-                <lastUpdate>2006-02-15T04:34:33+02:00</lastUpdate>
-            </arg0>
+            <actorFirstName>Dina Mishahed</actorFirstName>
+            <actorLastName>Mousa</actorLastName>
         </jets:AddNewActor>
     </soap:Body>
 </soap:Envelope>
@@ -54,12 +51,12 @@ Content-Type: text/xml
         xmlns:jets="http://service.jets.iti.gov/">
     <soap:Body>
         <jets:updateActor>
-            <arg0>
+            <actor>
                 <actorId>205</actorId>
                 <firstName>PENELOPE</firstName>
                 <lastName>GUINESS</lastName>
                 <lastUpdate>2023-04-16T12:00:00Z</lastUpdate>
-            </arg0>
+            </actor>
         </jets:updateActor>
     </soap:Body>
 </soap:Envelope>
@@ -73,7 +70,7 @@ Content-Type: text/xml
         xmlns:jets="http://service.jets.iti.gov/">
     <soap:Body>
         <jets:deleteActor>
-             <arg0>205</arg0>
+             <actorId>205</actorId>
         </jets:deleteActor>
     </soap:Body>
 </soap:Envelope>

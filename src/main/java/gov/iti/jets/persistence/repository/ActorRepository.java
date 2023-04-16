@@ -4,11 +4,10 @@ import java.util.List;
 
 import gov.iti.jets.persistence.dao.ActorDao;
 import gov.iti.jets.persistence.daoImp.ActorDaoImp;
-import gov.iti.jets.persistence.entity.Actor;
 import gov.iti.jets.service.dto.ActorDto;
 
 public class ActorRepository implements ActorDao {
-    private ActorDaoImp actorDaoImp;
+    private ActorDao actorDaoImp;
 
     public ActorRepository() {
         actorDaoImp = new ActorDaoImp();

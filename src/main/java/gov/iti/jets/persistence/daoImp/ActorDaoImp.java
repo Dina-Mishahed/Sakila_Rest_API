@@ -4,7 +4,6 @@ import gov.iti.jets.persistence.dao.ActorDao;
 import gov.iti.jets.persistence.entity.Actor;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
 import gov.iti.jets.service.dto.ActorDto;
-//import gov.iti.jets.service.mapper.ActorMapper;
 import gov.iti.jets.service.mapper.ActorMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -16,22 +15,27 @@ import jakarta.persistence.criteria.Root;
 import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ActorDaoImp implements ActorDao {
-    private static final EntityManager entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
     private ActorMapper actorMapper;
     public ActorDaoImp(){
         actorMapper = Mappers.getMapper(ActorMapper.class);
     }
     @Override
     public Boolean createActor(ActorDto actorDto) {
+        EntityManager entityManager = null;
         try {
+            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
+            if(actorDto.getLastUpdate() == null){
+                actorDto.setLastUpdate(new Date());
+            }
             Actor actor = actorMapper.toEntity(actorDto);
             entityManager.getTransaction().begin();
             entityManager.persist(actor);
             entityManager.getTransaction().commit();
-
+            HibernateEntityManagerFactory.getEntityManagerFactory();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
@@ -44,7 +48,10 @@ public class ActorDaoImp implements ActorDao {
 
     @Override
     public ActorDto getActorById(int id) {
+        EntityManager entityManager = null;
+
         try {
+            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
             Root<Actor> root = cq.from(Actor.class);
@@ -54,12 +61,17 @@ public class ActorDaoImp implements ActorDao {
             return actorDto;
         } catch (NoResultException e) {
             return null;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public Boolean updateActor(ActorDto actorDto) {
+        EntityManager entityManager = null;
+
         try {
+            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
             Actor actor = actorMapper.toEntity(actorDto);
             entityManager.getTransaction().begin();
             entityManager.merge(actor);
@@ -68,12 +80,17 @@ public class ActorDaoImp implements ActorDao {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public void deleteActor(int id) {
+        EntityManager entityManager = null;
+
         try {
+            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
             entityManager.getTransaction().begin();
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaDelete<Actor> cd = cb.createCriteriaDelete(Actor.class);
@@ -84,12 +101,17 @@ public class ActorDaoImp implements ActorDao {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public List<ActorDto> getAllActors() {
+        EntityManager entityManager = null;
+
         try {
+            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
             Root<Actor> root = cq.from(Actor.class);
@@ -106,6 +128,8 @@ public class ActorDaoImp implements ActorDao {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
+        }finally{
+            entityManager.close();
         }
     }
 }
