@@ -9,12 +9,12 @@ import java.util.Date;
 /**
  * A DTO for the {@link gov.iti.jets.entity.Actor} entity
  */
-//@XmlRootElement
+@XmlRootElement
 @Data
 //@NoArgsConstructor
 //@AllArgsConstructor
-//@Setter
-//@Getter
+@Setter
+@Getter
 public class ActorDto implements Serializable {
     private  Short actorId;
     private  String firstName;

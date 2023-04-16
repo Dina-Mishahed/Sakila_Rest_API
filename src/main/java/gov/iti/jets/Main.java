@@ -19,11 +19,11 @@ public class Main {
 
         System.out.println("Hello World!");
         ActorDaoImp actorDaoImp = new ActorDaoImp();
-        ActorDto actorDto =  new ActorDto();
+//        ActorDto actorDto =  new ActorDto();
 //        actorDto.setFirstName("dina");
-//        System.out.println(actorDto.getFirstName());
-        actorDto.setFirstName("3la Ay");
-        actorDto.setLastName("Toz Toz");
+////        System.out.println(actorDto.getFirstName());
+//        actorDto.setFirstName("3la Ay");
+//        actorDto.setLastName("Toz Toz");
 //        actorDto.setLastUpdate(new Date(121, 10, 1, 0, 0, 0));
 //        actorDto.setActorId((short) 201);
 //        actorDaoImp.createActor(actorDto);

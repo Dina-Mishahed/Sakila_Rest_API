@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+    <endpoint
+            name="ActorService"
+            implementation="gov.iti.jets.service.ActorService"
+            url-pattern="/sakila/actor" />
 <!--    //End Points-->
 <!--    createActor: /soap/actors-->
 <!--    getActorById: /soap/actors/{id}-->

@@ -8,38 +8,34 @@ import gov.iti.jets.persistence.entity.Actor;
 import gov.iti.jets.service.dto.ActorDto;
 
 public class ActorRepository implements ActorDao {
-    private ActorDaoImp actorDao;
+    private ActorDaoImp actorDaoImp;
 
     public ActorRepository() {
-        actorDao = new ActorDaoImp();
+        actorDaoImp = new ActorDaoImp();
     }
 
     @Override
     public Boolean createActor(ActorDto actorDto) {
-        return null;
+        return actorDaoImp.createActor(actorDto);
     }
 
     @Override
     public ActorDto getActorById(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getActorById'");
+        return actorDaoImp.getActorById(id);
     }
 
     @Override
     public Boolean updateActor(ActorDto actorDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateActor'");
+        return  actorDaoImp.updateActor(actorDto);
     }
 
     @Override
     public void deleteActor(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteActor'");
+        actorDaoImp.deleteActor(id);
     }
 
     @Override
     public List<ActorDto> getAllActors() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllActors'");
+        return actorDaoImp.getAllActors();
     }
 }
