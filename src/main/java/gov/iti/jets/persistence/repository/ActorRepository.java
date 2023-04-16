@@ -26,7 +26,7 @@ public class ActorRepository implements ActorDao {
     }
 
     @Override
-    public Actor updateActor(Actor actor) {
+    public Boolean updateActor(ActorDto actorDto) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateActor'");
     }

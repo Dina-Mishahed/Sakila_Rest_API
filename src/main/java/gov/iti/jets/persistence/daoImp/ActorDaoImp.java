@@ -15,6 +15,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.mapstruct.factory.Mappers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActorDaoImp implements ActorDao {
@@ -57,12 +58,13 @@ public class ActorDaoImp implements ActorDao {
     }
 
     @Override
-    public Actor updateActor(Actor actor) {
+    public Boolean updateActor(ActorDto actorDto) {
         try {
+            Actor actor = actorMapper.toEntity(actorDto);
             entityManager.getTransaction().begin();
             entityManager.merge(actor);
             entityManager.getTransaction().commit();
-            return actor;
+            return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
@@ -87,6 +89,23 @@ public class ActorDaoImp implements ActorDao {
 
     @Override
     public List<ActorDto> getAllActors() {
-        return null;
+        try {
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
+            Root<Actor> root = cq.from(Actor.class);
+            cq.select(root);
+
+            TypedQuery<Actor> query = entityManager.createQuery(cq);
+            List<Actor> actors = query.getResultList();
+            List<ActorDto> actorDtos = new ArrayList<>();
+            for (Actor actor : actors) {
+                ActorDto actorDto = actorMapper.toDto(actor);
+                actorDtos.add(actorDto);
+            }
+            return actorDtos;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        }
     }
 }
