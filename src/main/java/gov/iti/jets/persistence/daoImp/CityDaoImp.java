@@ -22,7 +22,7 @@ import java.util.List;
 public class CityDaoImp implements CityDao {
     private CityMapper cityMapper;
 
-    CityDaoImp(){
+    public CityDaoImp(){
         cityMapper = Mappers.getMapper(CityMapper.class);
     }
     @Override

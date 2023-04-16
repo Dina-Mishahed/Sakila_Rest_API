@@ -9,5 +9,9 @@
             name="CountryService"
             implementation="gov.iti.jets.service.soap.CountryService"
             url-pattern="/sakila/country" />
+    <endpoint
+            name="CountryService"
+            implementation="gov.iti.jets.service.soap.CityService"
+            url-pattern="/sakila/city" />
 
 </endpoints>
