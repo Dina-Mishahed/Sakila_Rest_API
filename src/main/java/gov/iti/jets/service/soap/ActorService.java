@@ -1,4 +1,4 @@
-package gov.iti.jets.service;
+package gov.iti.jets.service.soap;
 
 import gov.iti.jets.persistence.repository.ActorRepository;
 import gov.iti.jets.service.dto.ActorDto;
@@ -22,19 +22,19 @@ public class ActorService {
         ActorDto actorDto = new ActorDto(null,firstName,lastName, new Date());
         return actorRepository.createActor(actorDto);
     }
-    @WebMethod
+    @WebMethod(operationName = "FindActorById")
     public ActorDto getActorById(@WebParam(name = "actorId")short id) {
         return actorRepository.getActorById(id);
     }
-   @WebMethod
+   @WebMethod(operationName = "EditActorData")
    public Boolean updateActor(@WebParam(name = "actor")ActorDto actorDto) {
        return actorRepository.updateActor(actorDto);
    }
-    @WebMethod
+    @WebMethod(operationName = "DeleteActor")
     public void deleteActor(@WebParam(name = "actorId")short id) {
         actorRepository.deleteActor(id);
     }
-    @WebMethod
+    @WebMethod(operationName = "FindAllActors")
     public List<ActorDto> getAllActors() {
         return actorRepository.getAllActors();
     }
