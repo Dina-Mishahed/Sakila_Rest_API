@@ -1,0 +1,25 @@
+POST http://localhost:9090/soap/sakila/actor HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://service.jets.iti.gov/">
+    <soap:Body>
+        <jets:getAllActors>
+        </jets:getAllActors>
+    </soap:Body>
+</soap:Envelope>
+
+###
+POST http://localhost:9090/soap/sakila/actor HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://service.jets.iti.gov/">
+    <soap:Body>
+        <jets:getActorById>
+            <actorId>1</actorId>
+        </jets:getActorById>
+    </soap:Body>
+</soap:Envelope>

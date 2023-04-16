@@ -1,0 +1,45 @@
+
+
+POST http://localhost:9090/soap/sakila/country HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindAllCountry>
+        </jets:FindAllCountry>
+    </soap:Body>
+</soap:Envelope>
+
+###
+
+
+POST http://localhost:9090/soap/sakila/country HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindCountryById>
+            <countryId>1</countryId>
+        </jets:FindCountryById>
+    </soap:Body>
+</soap:Envelope>
+
+###
+
+
+POST http://localhost:9090/soap/sakila/country HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindAllCitiesByCountry>
+            <countryId>100</countryId>
+        </jets:FindAllCitiesByCountry>
+    </soap:Body>
+</soap:Envelope>

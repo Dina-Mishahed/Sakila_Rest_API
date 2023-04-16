@@ -6,12 +6,13 @@ import gov.iti.jets.service.dto.ActorDto;
 import gov.iti.jets.service.dto.FilmDto;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
 
 import java.util.Date;
 import java.util.List;
 
+@WebService
 public class FilmService {
-
 
     private FilmRepository filmRepository = new FilmRepository();
     @WebMethod(operationName = "AddNewFilm")
