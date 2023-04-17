@@ -53,12 +53,17 @@ public abstract class BaseDAO <E extends Object>{
     }
 
     public <T> Boolean create(Class<T> entityType,T entity) {
-        return executeWithEntityManager(entityManager -> {
-            entityManager.getTransaction().begin();
-            entityManager.persist(entity);
-            entityManager.getTransaction().commit();
-            return true;
-        });
+        try{
+            executeWithEntityManager(entityManager -> {
+                entityManager.getTransaction().begin();
+                entityManager.persist(entity);
+                entityManager.getTransaction().commit();
+                return true;
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+            }
+        return false;
     }
     public <T> Boolean update(Class<T> entityType,T entity) {
         return executeWithEntityManager(entityManager -> {
