@@ -128,6 +128,7 @@ public class CategoryDaoImp implements CategoryDao {
 
     @Override
     public int getFilmsByCategoryNo(int id) {
-        return getFilmsByCategory(id).size();
+        return 0;
     }
+
 }
