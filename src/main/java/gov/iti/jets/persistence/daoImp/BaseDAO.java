@@ -9,6 +9,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
+import java.util.List;
 import java.util.function.Function;
 
 public abstract class BaseDAO <E extends Object>{
@@ -31,15 +32,41 @@ public abstract class BaseDAO <E extends Object>{
             }
         }
     }
-//    public  <T> T get(Class C, String s,int id){
-//        return executeWithEntityManager(entityManager -> {
-//            CriteriaBuilder cb = ((EntityManager) entityManager).getCriteriaBuilder();
-//            CriteriaQuery<T> cq = cb.createQuery(T.class);
-//            Root<C> root = cq.from(C);
-//            cq.where(cb.equal(root.get(s), id));
-//            TypedQuery<T> query = ((EntityManager) entityManager).createQuery(cq);
-//            C obj = query.getSingleResult();
-//            return obj;
-//        });
-//    }
+    public <T> T get(Class<T> entityType, String idFieldName, int id) {
+        return executeWithEntityManager(entityManager -> {
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(entityType);
+            Root<T> root = cq.from(entityType);
+            cq.where(cb.equal(root.get(idFieldName), id));
+            TypedQuery<T> query = entityManager.createQuery(cq);
+            return query.getSingleResult();
+        });
+    }
+    public <T> List<T> getAll(Class<T> entityType) {
+        return executeWithEntityManager(entityManager -> {
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(entityType);
+            Root<T> root = cq.from(entityType);
+            TypedQuery<T> query = entityManager.createQuery(cq);
+            return query.getResultList();
+        });
+    }
+
+    public <T> Boolean create(Class<T> entityType,T entity) {
+        return executeWithEntityManager(entityManager -> {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entity);
+            entityManager.getTransaction().commit();
+            return true;
+        });
+    }
+    public <T> Boolean update(Class<T> entityType,T entity) {
+        return executeWithEntityManager(entityManager -> {
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+            return true;
+        });
+    }
+
 }
