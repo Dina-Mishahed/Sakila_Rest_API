@@ -19,7 +19,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityDaoImp implements CityDao {
+public class CityDaoImp extends BaseDAO implements CityDao {
     private CityMapper cityMapper;
 
     public CityDaoImp(){
@@ -27,21 +27,30 @@ public class CityDaoImp implements CityDao {
     }
     @Override
     public CityDto getCityById(int id) {
-        EntityManager entityManager = null;
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        return (CityDto) executeWithEntityManager(entityManager -> {
+            CriteriaBuilder cb = ((EntityManager) entityManager).getCriteriaBuilder();
             CriteriaQuery<City> cq = cb.createQuery(City.class);
             Root<City> root = cq.from(City.class);
             cq.where(cb.equal(root.get("cityId"), id));
-            TypedQuery<City> query = entityManager.createQuery(cq);
-            CityDto cityDto =  cityMapper.toDto(query.getSingleResult());
-            return cityDto;
-        } catch (NoResultException e) {
-            return null;
-        }finally{
-            entityManager.close();
-        }
+            TypedQuery<City> query = ((EntityManager) entityManager).createQuery(cq);
+            City city = query.getSingleResult();
+            return cityMapper.toDto(city);
+        });
+//        EntityManager entityManager = null;
+//        try {
+//            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
+//            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//            CriteriaQuery<City> cq = cb.createQuery(City.class);
+//            Root<City> root = cq.from(City.class);
+//            cq.where(cb.equal(root.get("cityId"), id));
+//            TypedQuery<City> query = entityManager.createQuery(cq);
+//            CityDto cityDto =  cityMapper.toDto(query.getSingleResult());
+//            return cityDto;
+//        } catch (NoResultException e) {
+//            return null;
+//        }finally{
+//            entityManager.close();
+//        }
     }
 
     @Override
