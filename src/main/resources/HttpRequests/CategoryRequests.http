@@ -1,0 +1,76 @@
+
+
+POST http://localhost:9090/soap/sakila/category HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindCategoryById>
+            <categoryId>1</categoryId>
+        </jets:FindCategoryById>
+    </soap:Body>
+</soap:Envelope>
+
+###
+
+
+POST http://localhost:9090/soap/sakila/category HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindFilmsByCategory>
+            <categoryId>1</categoryId>
+        </jets:FindFilmsByCategory>
+    </soap:Body>
+</soap:Envelope>
+###
+
+
+POST http://localhost:9090/soap/sakila/category HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindAllCategories>
+        </jets:FindAllCategories>
+    </soap:Body>
+</soap:Envelope>
+
+###
+
+
+POST http://localhost:9090/soap/sakila/category HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindCategoryByName>
+            <categoryName>Sci</categoryName>
+        </jets:FindCategoryByName>
+    </soap:Body>
+</soap:Envelope>
+
+###
+
+
+POST http://localhost:9090/soap/sakila/category HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:CountNoOfFilmsByCategory>
+            <categoryId>1</categoryId>
+        </jets:CountNoOfFilmsByCategory>
+    </soap:Body>
+</soap:Envelope>

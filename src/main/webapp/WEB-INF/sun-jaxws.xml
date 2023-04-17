@@ -10,8 +10,11 @@
             implementation="gov.iti.jets.service.soap.CountryService"
             url-pattern="/sakila/country" />
     <endpoint
-            name="CountryService"
+            name="CityService"
             implementation="gov.iti.jets.service.soap.CityService"
             url-pattern="/sakila/city" />
-
+    <endpoint
+            name="CategoryService"
+            implementation="gov.iti.jets.service.soap.CategoryService"
+            url-pattern="/sakila/category" />
 </endpoints>
