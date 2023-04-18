@@ -1,0 +1,29 @@
+
+
+POST http://localhost:9090/soap/sakila/city HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindAllPayment>
+        </jets:FindAllPayment>
+    </soap:Body>
+</soap:Envelope>
+
+###
+
+
+POST http://localhost:9090/soap/sakila/city HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope
+        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:jets="http://soap.service.jets.iti.gov/">
+    <soap:Body>
+        <jets:FindPaymentById>
+            <paymentId>1</paymentId>
+        </jets:FindPaymentById>
+    </soap:Body>
+</soap:Envelope>

@@ -17,6 +17,19 @@
             name="CategoryService"
             implementation="gov.iti.jets.service.soap.CategoryService"
             url-pattern="/sakila/category" />
+
+    <endpoint
+            name="InventoryService"
+            implementation="gov.iti.jets.service.soap.InventoryService"
+            url-pattern="/sakila/inventory" />
+    <endpoint
+            name="LanguageService"
+            implementation="gov.iti.jets.service.soap.LanguageService"
+            url-pattern="/sakila/language" />
+    <endpoint
+            name="PaymentService"
+            implementation="gov.iti.jets.service.soap.PaymentService"
+            url-pattern="/sakila/payment" />
     <!-- <endpoint
             name="CustomerService"
             implementation="gov.iti.jets.service.soap.CustomerService"
