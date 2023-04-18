@@ -85,8 +85,19 @@ public abstract class BaseDAO <E extends Object>{
         }
 
     }
-
-    public <T, E> List<T> getList(Class<T> returnEntityType, Class<E> entityType, String idFieldName, int id) {
+//    public <T, E> List<T> getList(Class<T> returnEntityType, Class<E> entityType, String idFieldName, int id) {
+//        return executeWithEntityManager(entityManager -> {
+//            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//            CriteriaQuery<T> cq = cb.createQuery(returnEntityType);
+//            Root<T> root = cq.from(returnEntityType);
+//            Join<T, E> join = root.join(idFieldName);
+//            Predicate joinPredicate = cb.equal(join.get(idFieldName), id);
+//            cq.select(root).where(joinPredicate);
+//            TypedQuery<T> query = entityManager.createQuery(cq);
+//            return query.getResultList();
+//        });
+//    }
+    public <T, E> List<T> getListByJoin(Class<T> returnEntityType, Class<E> entityType, String idFieldName, int id) {
         return executeWithEntityManager(entityManager -> {
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<T> cq = cb.createQuery(returnEntityType);

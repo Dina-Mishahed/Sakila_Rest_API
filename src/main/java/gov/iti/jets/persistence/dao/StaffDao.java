@@ -1,10 +1,14 @@
 package gov.iti.jets.persistence.dao;
 
-public class StaffDao {
+import gov.iti.jets.service.dto.StaffDto;
 
+import java.util.List;
+
+public interface StaffDao {
+    public StaffDto getStaffById(Short id);
+    public List<StaffDto> getAllStaff();
+//    public boolean addStaff(StaffDto staffDto);
+//    public boolean editStaff(Short staffId, StaffDto staffDto);
 }
-//    public StaffDto getById(Short id)     public List<StaffDto> getAll()
-//    public boolean addStaff(StaffFormDto staffFormDto) {
-//        public boolean editStaff(Short staffId, StaffFormDto staffFormDto) {
 
 

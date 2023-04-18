@@ -18,6 +18,6 @@ import java.util.Date;
 public class StoreDto implements Serializable {
     private Short storeId;
     private Date lastUpdate;
-    private String storeAddress;
-    private String managerName;
+    private int storeAddress;
+    private int managerName;
 }

@@ -1,9 +1,11 @@
 package gov.iti.jets.persistence.daoImp;
 
 import gov.iti.jets.persistence.dao.StoreDao;
-import gov.iti.jets.persistence.entity.City;
-import gov.iti.jets.persistence.entity.Store;
+import gov.iti.jets.persistence.entity.*;
 import gov.iti.jets.service.dto.*;
+import gov.iti.jets.service.mapper.CustomerMapper;
+import gov.iti.jets.service.mapper.InventoryMapper;
+import gov.iti.jets.service.mapper.StaffMapper;
 import gov.iti.jets.service.mapper.StoreMapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,8 +13,16 @@ import java.util.List;
 
 public class StoreDaoImp extends BaseDAO implements StoreDao {
     private StoreMapper storeMapper;
+    private InventoryMapper inventoryMapper;
+    private CustomerMapper customerMapper;
+    private StaffMapper staffMapper;
+
     public StoreDaoImp(){
         storeMapper = Mappers.getMapper(StoreMapper.class);
+        inventoryMapper = Mappers.getMapper(InventoryMapper.class);
+        customerMapper = Mappers.getMapper(CustomerMapper.class);
+        staffMapper = Mappers.getMapper(StaffMapper.class);
+
     }
     @Override
     public StoreDto getStoreById(Short id) {
@@ -20,10 +30,13 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
         return storeMapper.toDto(store);
     }
 
-    @Override
-    public Boolean addStore(StoreDto storeDto) {
-        return null;
-    }
+//    @Override
+//    public void addStore(int managerStaffId,int addressId) {
+//        StoreDto storeDto = new StoreDto();
+//        storeDto.setManagerName(managerStaffId);
+//        storeDto.setStoreAddress(addressId);
+//        create(Store.class,storeDto);
+//    }
 
     @Override
     public Boolean editStore(StoreDto storeDto) {
@@ -31,18 +44,39 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
     }
 
     @Override
-    public List<InventoryDto> getStoreInventoryList(int id) {
-        return null;
+    public List<InventoryDto> getInventoryListByStore(int id) {
+        Store store = (Store) get(Store.class,"storeId",id);
+        List<Inventory> inventoryList = store.getInventoryList();
+        List<InventoryDto> inventoryDtoList = inventoryList.stream().map((inventory -> inventoryMapper.toDto(inventory))).toList();
+        return inventoryDtoList;
     }
 
     @Override
-    public List<StaffDto> getStoreStaffList(int id) {
-        return null;
+    public StaffDto getManagerStaff(int storeId) {
+        Store store = (Store) get(Store.class,"storeId",storeId);
+        Staff staff = (Staff) get(Staff.class,"staffId",store.getManagerStaffId().getStaffId());
+        return staffMapper.toDto(staff);
+//        return executeWithEntityManager(entityManager -> {
+//            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//            CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
+//            Root<Store> storeRoot = cq.from(Store.class);
+//            Join<Store, Staff> staffJoin = storeRoot.join("managerStaffId", JoinType.INNER);
+//            cq.multiselect(storeRoot, staffJoin);
+//            cq.where(cb.equal(storeRoot.get("storeId"), storeId));
+//            TypedQuery<Tuple> query = entityManager.createQuery(cq);
+//            Tuple result = query.getSingleResult();
+//            Store store = result.get(0, Store.class);
+//            Staff staff = result.get(1, Staff.class);
+//            return staffMapper.toDto(staff);
+//        });
     }
 
     @Override
-    public List<CustomerInfoDto> getStoreCustomerList(int id) {
-        return null;
+    public List<CustomerDto> getCustomerListByStore(int id) {
+        Store store = (Store) get(Store.class,"storeId",id);
+        List<Customer> customerList = store.getCustomerList();
+        List<CustomerDto> customerDtoList = customerList.stream().map((customer -> customerMapper.toDto(customer))).toList();
+        return customerDtoList;
     }
 
     @Override
