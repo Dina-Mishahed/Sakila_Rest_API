@@ -1,15 +1,15 @@
 package gov.iti.jets.persistence.daoImp;
 
 import gov.iti.jets.persistence.entity.City;
+import gov.iti.jets.persistence.entity.Country;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
 import gov.iti.jets.service.dto.CityDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -85,5 +85,20 @@ public abstract class BaseDAO <E extends Object>{
         }
 
     }
+
+    public <T, E> List<T> getList(Class<T> returnEntityType, Class<E> entityType, String idFieldName, int id) {
+        return executeWithEntityManager(entityManager -> {
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(returnEntityType);
+            Root<T> root = cq.from(returnEntityType);
+            Join<T, E> join = root.join(idFieldName);
+            Predicate joinPredicate = cb.equal(join.get(idFieldName), id);
+            cq.select(root).where(joinPredicate);
+            TypedQuery<T> query = entityManager.createQuery(cq);
+            return query.getResultList();
+        });
+    }
+
+
 
 }

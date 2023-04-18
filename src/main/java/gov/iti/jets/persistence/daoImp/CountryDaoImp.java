@@ -55,29 +55,32 @@ public class CountryDaoImp extends BaseDAO implements CountryDao {
     }
     @Override
     public List<CityDto> getAllCitiesByCountry(int countryId) {
-        EntityManager entityManager = null;
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<City> cq = cb.createQuery(City.class);
-            Root<City> root = cq.from(City.class);
-            Join<City, Country> countryJoin = root.join("countryId");
-            Predicate countryPredicate = cb.equal(countryJoin.get("countryId"), countryId);
-            cq.select(root).where(countryPredicate);
-            TypedQuery<City> query = entityManager.createQuery(cq);
+        List<City> cities = getList(City.class,Country.class,"countryId",countryId);
+        return cities.stream().map((city -> cityMapper.toDto(city))).toList();
 
-            List<City> cities = query.getResultList();
-            List<CityDto> cityDtos = new ArrayList<>();
-            for (City city : cities) {
-                CityDto cityDto = cityMapper.toDto(city);
-                cityDtos.add(cityDto);
-            }
-            return cityDtos;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw e;
-        }finally{
-            entityManager.close();
-        }
+//        EntityManager entityManager = null;
+//        try {
+//            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
+//            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//            CriteriaQuery<City> cq = cb.createQuery(City.class);
+//            Root<City> root = cq.from(City.class);
+//            Join<City, Country> countryJoin = root.join("countryId");
+//            Predicate countryPredicate = cb.equal(countryJoin.get("countryId"), countryId);
+//            cq.select(root).where(countryPredicate);
+//            TypedQuery<City> query = entityManager.createQuery(cq);
+//
+//            List<City> cities = query.getResultList();
+//            List<CityDto> cityDtos = new ArrayList<>();
+//            for (City city : cities) {
+//                CityDto cityDto = cityMapper.toDto(city);
+//                cityDtos.add(cityDto);
+//            }
+//            return cityDtos;
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//            throw e;
+//        }finally{
+//            entityManager.close();
+//        }
     }
 }
