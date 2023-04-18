@@ -2,8 +2,10 @@ package gov.iti.jets.persistence.daoImp;
 
 import gov.iti.jets.persistence.dao.ActorDao;
 import gov.iti.jets.persistence.entity.Actor;
+import gov.iti.jets.persistence.entity.City;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
 import gov.iti.jets.service.dto.ActorDto;
+import gov.iti.jets.service.dto.CityDto;
 import gov.iti.jets.service.mapper.ActorMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -21,7 +23,7 @@ import java.util.List;
 
 
 
-public class ActorDaoImp implements ActorDao {
+public class ActorDaoImp extends BaseDAO implements ActorDao {
     private ActorMapper actorMapper;
     public ActorDaoImp(){
         actorMapper = Mappers.getMapper(ActorMapper.class);
@@ -51,22 +53,26 @@ public class ActorDaoImp implements ActorDao {
 
     @Override
     public ActorDto getActorById(int id) {
-        EntityManager entityManager = null;
+        Actor actor = (Actor) get(Actor.class,"actorId",id);
+        return actorMapper.toDto(actor);
 
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
-            Root<Actor> root = cq.from(Actor.class);
-            cq.where(cb.equal(root.get("actorId"), id));
-            TypedQuery<Actor> query = entityManager.createQuery(cq);
-            ActorDto actorDto =  actorMapper.toDto(query.getSingleResult());
-            return actorDto;
-        } catch (NoResultException e) {
-            return null;
-        }finally{
-            entityManager.close();
-        }
+
+//        EntityManager entityManager = null;
+//
+//        try {
+//            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
+//            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//            CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
+//            Root<Actor> root = cq.from(Actor.class);
+//            cq.where(cb.equal(root.get("actorId"), id));
+//            TypedQuery<Actor> query = entityManager.createQuery(cq);
+//            ActorDto actorDto =  actorMapper.toDto(query.getSingleResult());
+//            return actorDto;
+//        } catch (NoResultException e) {
+//            return null;
+//        }finally{
+//            entityManager.close();
+//        }
     }
 
     @Override
@@ -111,28 +117,8 @@ public class ActorDaoImp implements ActorDao {
 
     @Override
     public List<ActorDto> getAllActors() {
-        EntityManager entityManager = null;
-
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Actor> cq = cb.createQuery(Actor.class);
-            Root<Actor> root = cq.from(Actor.class);
-            cq.select(root);
-
-            TypedQuery<Actor> query = entityManager.createQuery(cq);
-            List<Actor> actors = query.getResultList();
-            List<ActorDto> actorDtos = new ArrayList<>();
-            for (Actor actor : actors) {
-                ActorDto actorDto = actorMapper.toDto(actor);
-                actorDtos.add(actorDto);
-            }
-            return actorDtos;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw e;
-        }finally{
-            entityManager.close();
-        }
+        List<Actor> actorList = getAll(Actor.class);
+        List<ActorDto> actorDtoList = actorList.stream().map((actor -> actorMapper.toDto(actor))).toList();
+        return actorDtoList;
     }
 }

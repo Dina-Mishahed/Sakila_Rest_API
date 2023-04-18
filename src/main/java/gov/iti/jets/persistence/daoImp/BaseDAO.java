@@ -4,6 +4,7 @@ import gov.iti.jets.persistence.entity.City;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
 import gov.iti.jets.service.dto.CityDto;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -52,26 +53,37 @@ public abstract class BaseDAO <E extends Object>{
         });
     }
 
-    public <T> Boolean create(Class<T> entityType,T entity) {
-        try{
+    public <T> void create(Class<T> entityType, T entity) {
+        try {
+            if (entity == null) {
+                throw new IllegalArgumentException("Entity cannot be null");
+            }
+
             executeWithEntityManager(entityManager -> {
                 entityManager.getTransaction().begin();
                 entityManager.persist(entity);
                 entityManager.getTransaction().commit();
+                return null;
+            });
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("IllegalArgumentException....");
+        } catch (PersistenceException e) {
+            throw new PersistenceException("PersistenceException.....");
+        }
+    }
+
+    public <T> Boolean update(Class<T> entityType,T entity) throws Exception {
+        try{
+            return executeWithEntityManager(entityManager -> {
+                entityManager.getTransaction().begin();
+                entityManager.merge(entity);
+                entityManager.getTransaction().commit();
                 return true;
             });
-        }catch(Exception e){
-            e.printStackTrace();
-            }
-        return false;
-    }
-    public <T> Boolean update(Class<T> entityType,T entity) {
-        return executeWithEntityManager(entityManager -> {
-            entityManager.getTransaction().begin();
-            entityManager.merge(entity);
-            entityManager.getTransaction().commit();
-            return true;
-        });
+        }catch(IllegalArgumentException |PersistenceException e ){
+            throw new Exception("Exception.....");
+        }
+
     }
 
 }

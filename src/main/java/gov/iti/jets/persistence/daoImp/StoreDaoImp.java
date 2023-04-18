@@ -48,7 +48,6 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
     @Override
     public List<StoreDto> getAllStores() {
         List<Store> storeList = getAll(Store.class);
-        List<StoreDto> storeDtos = storeList.stream().map((store -> storeMapper.toDto(store))).toList();
-        return storeDtos;
+        return storeList.stream().map((store -> storeMapper.toDto(store))).toList();
     }
 }

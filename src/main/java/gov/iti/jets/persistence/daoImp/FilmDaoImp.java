@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gov.iti.jets.persistence.dao.FilmDao;
+import gov.iti.jets.persistence.entity.Customer;
 import gov.iti.jets.persistence.entity.Film;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
 import gov.iti.jets.service.dto.FilmDto;
@@ -16,7 +17,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.mapstruct.factory.Mappers;
 
-public class FilmDaoImp implements FilmDao{
+public class FilmDaoImp  extends BaseDAO implements FilmDao{
     private FilmMapper filmMapper;
     public FilmDaoImp(){
         filmMapper = Mappers.getMapper(FilmMapper.class);
@@ -28,22 +29,8 @@ public class FilmDaoImp implements FilmDao{
 
     @Override
     public FilmDto getFilmById(int id) {
-        EntityManager entityManager = null;
-
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Film> cq = cb.createQuery(Film.class);
-            Root<Film> root = cq.from(Film.class);
-            cq.where(cb.equal(root.get("filmId"), id));
-            TypedQuery<Film> query = entityManager.createQuery(cq);
-            FilmDto filmDto =  filmMapper.toDto(query.getSingleResult());
-            return filmDto;
-        } catch (NoResultException e) {
-            return null;
-        }finally{
-            entityManager.close();
-        }
+        Film film = (Film) get(Film.class,"filmId",id);
+        return filmMapper.toDto(film);
     }
 
     @Override
@@ -72,28 +59,7 @@ public class FilmDaoImp implements FilmDao{
 
     @Override
     public List<FilmDto> getAllFilms() {
-        EntityManager entityManager = null;
-
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Film> cq = cb.createQuery(Film.class);
-            Root<Film> root = cq.from(Film.class);
-            cq.select(root);
-
-            TypedQuery<Film> query = entityManager.createQuery(cq);
-            List<Film> films = query.getResultList();
-            List<FilmDto> filmDtos = new ArrayList<>();
-            for (Film film : films) {
-                FilmDto filmDao = filmMapper.toDto(film);
-                filmDtos.add(filmDao);
-            }
-            return filmDtos;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw e;
-        }finally{
-            entityManager.close();
-        }
+        List<Film> filmList = getAll(Film.class);
+        return filmList.stream().map((film -> filmMapper.toDto(film))).toList();
     }
 }

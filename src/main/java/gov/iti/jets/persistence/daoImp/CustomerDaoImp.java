@@ -19,7 +19,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDaoImp implements CustomerDao {
+public class CustomerDaoImp extends BaseDAO implements CustomerDao {
     private CustomerMapper customerMapper ;
     private RentalMapper rentalMapper ;
     private PaymentMapper paymentMapper ;
@@ -32,49 +32,14 @@ public class CustomerDaoImp implements CustomerDao {
     }
     @Override
     public CustomerDto getCustomerById(int id) {
-        EntityManager entityManager = null;
-
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
-            Root<Customer> root = cq.from(Customer.class);
-            cq.where(cb.equal(root.get("customerId"), id));
-            TypedQuery<Customer> query = entityManager.createQuery(cq);
-            CustomerDto actorDto =  customerMapper.toDto(query.getSingleResult());
-            return actorDto;
-        } catch (NoResultException e) {
-            return null;
-        }finally{
-            entityManager.close();
-        }
+        Customer customer = (Customer) get(Customer.class,"customerId",id);
+        return customerMapper.toDto(customer);
     }
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-        EntityManager entityManager = null;
-
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
-            Root<Customer> root = cq.from(Customer.class);
-            cq.select(root);
-
-            TypedQuery<Customer> query = entityManager.createQuery(cq);
-            List<Customer> customers = query.getResultList();
-            List<CustomerDto> customerDtos = new ArrayList<>();
-            for (Customer customer : customers) {
-                CustomerDto customerDto = customerMapper.toDto(customer);
-                customerDtos.add(customerDto);
-            }
-            return customerDtos;
-        } catch (Exception e) {
-        entityManager.getTransaction().rollback();
-            throw e;
-        }finally{
-            entityManager.close();
-        }
+        List<Customer> customerList = getAll(Customer.class);
+        return customerList.stream().map((customer -> customerMapper.toDto(customer))).toList();
     }
 
     @Override

@@ -22,7 +22,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDaoImp implements CategoryDao {
+public class CategoryDaoImp extends BaseDAO implements CategoryDao {
     CategoryMapper categoryMapper;
     FilmMapper filmMapper;
     public CategoryDaoImp(){
@@ -31,48 +31,30 @@ public class CategoryDaoImp implements CategoryDao {
     }
     @Override
     public CategoryDto getCategoryById(int id) {
-        EntityManager entityManager = null;
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Category> cq = cb.createQuery(Category.class);
-            Root<Category> root = cq.from(Category.class);
-            cq.where(cb.equal(root.get("categoryId"), id));
-            TypedQuery<Category> query = entityManager.createQuery(cq);
-            CategoryDto categoryDto =  categoryMapper.toDto(query.getSingleResult());
-            return categoryDto;
-        } catch (NoResultException e) {
-            return null;
-        }finally{
-            entityManager.close();
-        }
+        Category category = (Category) get(Category.class,"categoryId",id);
+        return categoryMapper.toDto(category);
+//        EntityManager entityManager = null;
+//        try {
+//            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
+//            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//            CriteriaQuery<Category> cq = cb.createQuery(Category.class);
+//            Root<Category> root = cq.from(Category.class);
+//            cq.where(cb.equal(root.get("categoryId"), id));
+//            TypedQuery<Category> query = entityManager.createQuery(cq);
+//            CategoryDto categoryDto =  categoryMapper.toDto(query.getSingleResult());
+//            return categoryDto;
+//        } catch (NoResultException e) {
+//            return null;
+//        }finally{
+//            entityManager.close();
+//        }
     }
 
     @Override
     public List<CategoryDto> getAllCategories() {
-        EntityManager entityManager = null;
-
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Category> cq = cb.createQuery(Category.class);
-            Root<Category> root = cq.from(Category.class);
-            cq.select(root);
-
-            TypedQuery<Category> query = entityManager.createQuery(cq);
-            List<Category> categories = query.getResultList();
-            List<CategoryDto> categoryDtos = new ArrayList<>();
-            for (Category category : categories) {
-                CategoryDto categoryDto = categoryMapper.toDto(category);
-                categoryDtos.add(categoryDto);
-            }
-            return categoryDtos;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw e;
-        }finally{
-            entityManager.close();
-        }
+        List<Category> categoryList = getAll(Category.class);
+        List<CategoryDto> categoryDtoList = categoryList.stream().map((category -> categoryMapper.toDto(category))).toList();
+        return categoryDtoList;
     }
 
     @Override
