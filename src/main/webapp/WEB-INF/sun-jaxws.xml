@@ -30,6 +30,19 @@
             name="PaymentService"
             implementation="gov.iti.jets.service.soap.PaymentService"
             url-pattern="/sakila/payment" />
+
+    <endpoint
+            name="RentalService"
+            implementation="gov.iti.jets.service.soap.RentalService"
+            url-pattern="/sakila/rental" />
+    <endpoint
+            name="StaffService"
+            implementation="gov.iti.jets.service.soap.StaffService"
+            url-pattern="/sakila/staff" />
+    <endpoint
+            name="StoreService"
+            implementation="gov.iti.jets.service.soap.StoreService"
+            url-pattern="/sakila/store" />
     <!-- <endpoint
             name="CustomerService"
             implementation="gov.iti.jets.service.soap.CustomerService"
