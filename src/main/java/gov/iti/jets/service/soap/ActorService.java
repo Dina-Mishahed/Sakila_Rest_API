@@ -8,12 +8,6 @@ import jakarta.jws.WebService;
 
 import java.util.Date;
 import java.util.List;
-
-//<!--    createActor: /soap/actors-->
-//<!--    getActorById: /soap/actors/{id}-->
-//<!--    updateActor: /soap/actors/{id}-->
-//<!--    deleteActor: /soap/actors/{id}-->
-//<!--    getAllActors: /soap/actors-->
 @WebService
 public class ActorService {
     private ActorRepository actorRepository = new ActorRepository();
