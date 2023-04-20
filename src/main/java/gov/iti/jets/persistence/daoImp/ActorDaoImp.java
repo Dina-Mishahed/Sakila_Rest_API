@@ -1,10 +1,14 @@
 package gov.iti.jets.persistence.daoImp;
 
 import gov.iti.jets.persistence.dao.ActorDao;
-import gov.iti.jets.persistence.entity.Actor;
+import gov.iti.jets.persistence.dao.FilmDao;
+import gov.iti.jets.persistence.entity.*;
 import gov.iti.jets.persistence.util.HibernateEntityManagerFactory;
 import gov.iti.jets.service.dto.ActorDto;
+import gov.iti.jets.service.dto.FilmActorDto;
+import gov.iti.jets.service.dto.RentalDto;
 import gov.iti.jets.service.mapper.ActorMapper;
+import gov.iti.jets.service.mapper.FilmActorMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
@@ -18,8 +22,11 @@ import java.util.List;
 
 public class ActorDaoImp extends BaseDAO implements ActorDao {
     private ActorMapper actorMapper;
+    private Actor actor;
+    private FilmActorMapper filmActorMapper;
     public ActorDaoImp(){
         actorMapper = Mappers.getMapper(ActorMapper.class);
+        filmActorMapper = Mappers.getMapper(FilmActorMapper.class);
     }
     @Override
     public Boolean createActor(ActorDto actorDto) {
@@ -46,7 +53,7 @@ public class ActorDaoImp extends BaseDAO implements ActorDao {
 
     @Override
     public ActorDto getActorById(int id) {
-        Actor actor = (Actor) get(Actor.class,"actorId",id);
+        actor = getById(id);
         return actorMapper.toDto(actor);
     }
 
@@ -96,4 +103,16 @@ public class ActorDaoImp extends BaseDAO implements ActorDao {
         List<ActorDto> actorDtoList = actorList.stream().map((actor -> actorMapper.toDto(actor))).toList();
         return actorDtoList;
     }
+
+    @Override
+    public List<FilmActorDto> getFilmListByActor(int id) {
+        actor = getById(id);
+        List<FilmActor> filmActorList = actor.getFilmActorList();
+        List<FilmActorDto> filmActorDtos = filmActorList.stream().map((filmActor -> filmActorMapper.toDto(filmActor))).toList();
+        return filmActorDtos;
+    }
+    private Actor getById(int id){
+        return (Actor) get(Actor.class,"actorId",id);
+    }
+
 }

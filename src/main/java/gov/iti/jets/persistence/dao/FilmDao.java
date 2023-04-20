@@ -17,8 +17,8 @@ public interface FilmDao {
     Boolean updateFilm(FilmDto film);
     Boolean deleteFilm(int id);
     List<FilmDto> getAllFilms();
-    List<InventoryDto> inventoryList();
-    List<FilmActorDto> filmActorList();
-    List<FilmCategoryDto> filmCategoryList();
+    List<InventoryDto> getInventoryListByFilm(int id);
+    List<FilmActorDto> getfilmActorList(int id);
+    List<FilmCategoryDto> getfilmCategoryList(int id);
 
 }

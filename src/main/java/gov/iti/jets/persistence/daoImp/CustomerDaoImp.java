@@ -23,6 +23,7 @@ public class CustomerDaoImp extends BaseDAO implements CustomerDao {
     private CustomerMapper customerMapper ;
     private RentalMapper rentalMapper ;
     private PaymentMapper paymentMapper ;
+    private Customer customer;
 
 
     public CustomerDaoImp(){
@@ -32,7 +33,7 @@ public class CustomerDaoImp extends BaseDAO implements CustomerDao {
     }
     @Override
     public CustomerDto getCustomerById(int id) {
-        Customer customer = (Customer) get(Customer.class,"customerId",id);
+        customer = getById(id);
         return customerMapper.toDto(customer);
     }
 
@@ -111,43 +112,19 @@ public class CustomerDaoImp extends BaseDAO implements CustomerDao {
 
     @Override
     public List<RentalDto> getCustomerRentalById(int id) {
-        EntityManager entityManager = null;
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
-            Root<Customer> root = cq.from(Customer.class);
-            cq.where(cb.equal(root.get("customerId"), id));
-            TypedQuery<Customer> query = entityManager.createQuery(cq);
-            List<Rental> rentalList = query.getSingleResult().getRentalList();
-            List<RentalDto> rentalDtos = rentalList.stream().map((rental -> rentalMapper.toDto(rental))).toList();
-            return rentalDtos;
-        } catch (NoResultException e) {
-            return null;
-        }finally{
-            entityManager.close();
-        }
+        customer = getById(id);
+        List<Rental> rentalList = customer.getRentalList();
+        List<RentalDto> rentalDtos = rentalList.stream().map((rental -> rentalMapper.toDto(rental))).toList();
+        return rentalDtos;
     }
 
 
     @Override
     public List<PaymentDto> getCustomerPaymentById(int id) {
-        EntityManager entityManager = null;
-        try {
-            entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
-            Root<Customer> root = cq.from(Customer.class);
-            cq.where(cb.equal(root.get("customerId"), id));
-            TypedQuery<Customer> query = entityManager.createQuery(cq);
-            List<Payment> paymentList = query.getSingleResult().getPaymentList();
-            List<PaymentDto> paymentDtoList = paymentList.stream().map((payment -> paymentMapper.toDto(payment))).toList();
-            return paymentDtoList;
-        } catch (NoResultException e) {
-            return null;
-        }finally{
-            entityManager.close();
-        }
+        customer = getById(id);
+        List<Payment> paymentList = customer.getPaymentList();
+        List<PaymentDto> paymentDtoList = paymentList.stream().map((payment -> paymentMapper.toDto(payment))).toList();
+        return paymentDtoList;
     }
 
     @Override
@@ -205,4 +182,9 @@ public class CustomerDaoImp extends BaseDAO implements CustomerDao {
             entityManager.close();
         }
     }
+
+    private Customer getById(int id){
+        return (Customer) get(Customer.class,"customerId",id);
+    }
+
 }

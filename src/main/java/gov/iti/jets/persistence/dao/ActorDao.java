@@ -4,6 +4,8 @@ import java.util.List;
 
 import gov.iti.jets.persistence.entity.Actor;
 import gov.iti.jets.service.dto.ActorDto;
+import gov.iti.jets.service.dto.FilmActorDto;
+
 //searchActorByName
 //getActorFilmList
 // getActorFilmListByLanguage
@@ -17,6 +19,6 @@ public interface ActorDao {
     Boolean updateActor(ActorDto actorDto);
     void deleteActor(int id);
     List<ActorDto> getAllActors();
-//    List<FilmDao> getFilmListByActorId(int id);
+    List<FilmActorDto> getFilmListByActor(int id);
 //    ActorDto getActorByname();
 }

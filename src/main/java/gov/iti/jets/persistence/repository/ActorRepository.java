@@ -5,6 +5,7 @@ import java.util.List;
 import gov.iti.jets.persistence.dao.ActorDao;
 import gov.iti.jets.persistence.daoImp.ActorDaoImp;
 import gov.iti.jets.service.dto.ActorDto;
+import gov.iti.jets.service.dto.FilmActorDto;
 
 public class ActorRepository implements ActorDao {
     private ActorDao actorDaoImp;
@@ -36,5 +37,10 @@ public class ActorRepository implements ActorDao {
     @Override
     public List<ActorDto> getAllActors() {
         return actorDaoImp.getAllActors();
+    }
+
+    @Override
+    public List<FilmActorDto> getFilmListByActor(int id) {
+        return actorDaoImp.getFilmListByActor(id);
     }
 }
