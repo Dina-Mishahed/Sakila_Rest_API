@@ -41,6 +41,11 @@ public class  StoreRepository implements StoreDao {
     }
 
     @Override
+    public List<StaffDto> getStaffListByStore(int id) {
+        return storeDao.getStaffListByStore(id);
+    }
+
+    @Override
     public List<StoreDto> getAllStores() {
         return storeDao.getAllStores();
     }

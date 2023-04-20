@@ -16,6 +16,7 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
     private InventoryMapper inventoryMapper;
     private CustomerMapper customerMapper;
     private StaffMapper staffMapper;
+    private Store store;
 
     public StoreDaoImp(){
         storeMapper = Mappers.getMapper(StoreMapper.class);
@@ -26,7 +27,7 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
     }
     @Override
     public StoreDto getStoreById(Short id) {
-        Store store = (Store) get(Store.class,"storeId",id);
+        store = store = getById(id);
         return storeMapper.toDto(store);
     }
 
@@ -45,7 +46,7 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
 
     @Override
     public List<InventoryDto> getInventoryListByStore(int id) {
-        Store store = (Store) get(Store.class,"storeId",id);
+        store = getById(id);
         List<Inventory> inventoryList = store.getInventoryList();
         List<InventoryDto> inventoryDtoList = inventoryList.stream().map((inventory -> inventoryMapper.toDto(inventory))).toList();
         return inventoryDtoList;
@@ -53,7 +54,7 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
 
     @Override
     public StaffDto getManagerStaff(int storeId) {
-        Store store = (Store) get(Store.class,"storeId",storeId);
+        store = getById(storeId);
         Staff staff = (Staff) get(Staff.class,"staffId",store.getManagerStaffId().getStaffId());
         return staffMapper.toDto(staff);
 //        return executeWithEntityManager(entityManager -> {
@@ -73,10 +74,18 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
 
     @Override
     public List<CustomerDto> getCustomerListByStore(int id) {
-        Store store = (Store) get(Store.class,"storeId",id);
+        store = getById(id);
         List<Customer> customerList = store.getCustomerList();
         List<CustomerDto> customerDtoList = customerList.stream().map((customer -> customerMapper.toDto(customer))).toList();
         return customerDtoList;
+    }
+
+    @Override
+    public List<StaffDto> getStaffListByStore(int id) {
+        store = getById(id);
+        List<Staff> staffList = store.getStaffList();
+        List<StaffDto> staffDtoList = staffList.stream().map((staff -> staffMapper.toDto(staff))).toList();
+        return staffDtoList;
     }
 
     @Override
@@ -84,4 +93,8 @@ public class StoreDaoImp extends BaseDAO implements StoreDao {
         List<Store> storeList = getAll(Store.class);
         return storeList.stream().map((store -> storeMapper.toDto(store))).toList();
     }
+    private Store getById(int id){
+        return (Store) get(Store.class,"storeId",id);
+    }
+
 }

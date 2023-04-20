@@ -17,12 +17,12 @@ public class InventoryResource {
     @Path("{InventoryId: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public InventoryDto getInventoryById(@PathParam("InventoryId") short id){
-        return inventoryRepository.getInventoryDById(id);
+        return inventoryRepository.getInventoryById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<InventoryDto> getAllInventory() {
-        return inventoryRepository.getAllInventoryD();
+        return inventoryRepository.getAllInventory();
     }
 }

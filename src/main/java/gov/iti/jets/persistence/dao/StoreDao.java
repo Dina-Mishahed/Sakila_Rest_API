@@ -12,6 +12,7 @@ public interface StoreDao {
     StaffDto getManagerStaff(int storeId);
 
     List<CustomerDto> getCustomerListByStore(int id);
+    List<StaffDto> getStaffListByStore(int id);
 
     List<StoreDto> getAllStores();
 

@@ -1,6 +1,9 @@
 package gov.iti.jets.service.rest;
 
 import gov.iti.jets.persistence.repository.StoreRepository;
+import gov.iti.jets.service.dto.CustomerDto;
+import gov.iti.jets.service.dto.InventoryDto;
+import gov.iti.jets.service.dto.StaffDto;
 import gov.iti.jets.service.dto.StoreDto;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -29,5 +32,26 @@ public class StoreResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<StoreDto> getAllStore() {
         return storeRepository.getAllStores();
+    }
+
+    @GET
+    @Path("inventories/{storetId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<InventoryDto> getInventoryListByStore(@PathParam("storetId") short id){
+        return storeRepository.getInventoryListByStore(id);
+    }
+
+    @GET
+    @Path("customers/{storetId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CustomerDto> getCustomerListByStore(@PathParam("storetId") short id){
+        return storeRepository.getCustomerListByStore(id);
+    }
+
+    @GET
+    @Path("staff/{storetId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<StaffDto> getStaffListByStore(@PathParam("storetId") short id){
+        return storeRepository.getStaffListByStore(id);
     }
 }

@@ -12,12 +12,12 @@ public class InventoryRepository implements InventoryDao {
         inventoryDao = new InventoryDaoImp();
     }
     @Override
-    public InventoryDto getInventoryDById(int id) {
-        return inventoryDao.getInventoryDById(id);
+    public InventoryDto getInventoryById(int id) {
+        return inventoryDao.getInventoryById(id);
     }
 
     @Override
-    public List<InventoryDto> getAllInventoryD() {
-        return inventoryDao.getAllInventoryD();
+    public List<InventoryDto> getAllInventory() {
+        return inventoryDao.getAllInventory();
     }
 }
