@@ -20,5 +20,5 @@ public interface ActorDao {
     void deleteActor(int id);
     List<ActorDto> getAllActors();
     List<FilmActorDto> getFilmListByActor(int id);
-//    ActorDto getActorByname();
+    List<ActorDto> getActorByName(String name);
 }
