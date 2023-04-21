@@ -25,8 +25,8 @@ public class ActorRepository implements ActorDao {
     }
 
     @Override
-    public Boolean updateActor(ActorDto actorDto) {
-        return  actorDaoImp.updateActor(actorDto);
+    public Boolean updateActor(int id,ActorDto actorDto) {
+        return  actorDaoImp.updateActor( id,actorDto);
     }
 
     @Override

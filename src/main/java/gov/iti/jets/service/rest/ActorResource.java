@@ -2,13 +2,9 @@ package gov.iti.jets.service.rest;
 
 import gov.iti.jets.persistence.repository.ActorRepository;
 import gov.iti.jets.service.dto.ActorDto;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.Date;
 import java.util.List;
@@ -47,7 +43,23 @@ public class ActorResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-   public List<ActorDto> getAllActors() {
+    public List<ActorDto> getAllActors() {
        return actorRepository.getAllActors();
    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Boolean addActor(ActorDto newActor)  {
+       return actorRepository.createActor(newActor);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public Response updateActor(@PathParam("id")int id, ActorDto newActor)  {
+       actorRepository.updateActor(id,newActor);
+        return Response.ok().build();
+    }
 }

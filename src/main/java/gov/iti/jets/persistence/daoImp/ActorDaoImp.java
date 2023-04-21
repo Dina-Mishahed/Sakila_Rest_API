@@ -58,12 +58,12 @@ public class ActorDaoImp extends BaseDAO implements ActorDao {
     }
 
     @Override
-    public Boolean updateActor(ActorDto actorDto) {
+    public Boolean updateActor(int id,ActorDto actorDto) {
         EntityManager entityManager = null;
-
         try {
             entityManager = HibernateEntityManagerFactory.getEntityManagerFactory().createEntityManager();
             Actor actor = actorMapper.toEntity(actorDto);
+            actor.setActorId((short) id);
             entityManager.getTransaction().begin();
             entityManager.merge(actor);
             entityManager.getTransaction().commit();
