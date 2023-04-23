@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("payment")
+@Path("payments")
 public class PaymentResource {
     private PaymentRepository paymentRepository = new PaymentRepository();
 

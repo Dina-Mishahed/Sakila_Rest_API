@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 
-@Path("store")
+@Path("stores")
 public class StoreResource {
     private StoreRepository storeRepository = new StoreRepository();
 
@@ -49,7 +49,7 @@ public class StoreResource {
     }
 
     @GET
-    @Path("staff/{storetId: [0-9]+}")
+    @Path("staffs/{storetId: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<StaffDto> getStaffListByStore(@PathParam("storetId") short id){
         return storeRepository.getStaffListByStore(id);

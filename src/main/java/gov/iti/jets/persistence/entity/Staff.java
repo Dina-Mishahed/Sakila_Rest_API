@@ -7,23 +7,8 @@ package gov.iti.jets.persistence.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
+import jakarta.persistence.*;
 
 /**
  *
@@ -80,9 +65,9 @@ public class Staff implements Serializable {
     private Store storeId;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "managerStaffId")
     private Store store;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId",fetch = FetchType.EAGER)
     private List<Rental> rentalList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId",fetch = FetchType.EAGER)
     private List<Payment> paymentList;
 
     public Staff() {

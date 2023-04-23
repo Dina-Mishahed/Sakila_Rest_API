@@ -9,7 +9,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
-@Path("language")
+@Path("languages")
 public class LanguageResource {
     private LanguageRepository languageRepository = new LanguageRepository();
 

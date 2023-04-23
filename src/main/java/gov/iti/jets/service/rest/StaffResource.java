@@ -1,6 +1,7 @@
 package gov.iti.jets.service.rest;
 
 import gov.iti.jets.persistence.repository.StaffRepository;
+import gov.iti.jets.service.dto.RentalDto;
 import gov.iti.jets.service.dto.StaffDto;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -10,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("staff")
+@Path("staffs")
 public class StaffResource {
     private StaffRepository staffRepository = new StaffRepository();
 
@@ -25,5 +26,13 @@ public class StaffResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<StaffDto> getAllStaff() {
         return staffRepository.getAllStaff();
+    }
+
+
+    @GET
+    @Path("getRentals/{storetId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<RentalDto> getRentalListByStaff(int id) {
+        return staffRepository.getRentalListByStaff(id);
     }
 }

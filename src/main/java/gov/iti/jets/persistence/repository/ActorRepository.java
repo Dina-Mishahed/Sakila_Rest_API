@@ -43,4 +43,9 @@ public class ActorRepository implements ActorDao {
     public List<FilmActorDto> getFilmListByActor(int id) {
         return actorDaoImp.getFilmListByActor(id);
     }
+
+    @Override
+    public List<ActorDto> getActorByName(String name) {
+        return actorDaoImp.getActorByName(name);
+    }
 }

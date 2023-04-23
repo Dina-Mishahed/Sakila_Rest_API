@@ -10,7 +10,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
-@Path("inventory")
+@Path("inventories")
 public class InventoryResource {
     private InventoryRepository inventoryRepository = new InventoryRepository();
     @GET

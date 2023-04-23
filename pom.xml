@@ -113,7 +113,7 @@
                     <username>admin</username>
                     <password>admin</password>
                     <url>http://localhost:9090/manager/text</url>
-                    <path>/rest</path>
+                    <path>/</path>
                 </configuration>
             </plugin>
 

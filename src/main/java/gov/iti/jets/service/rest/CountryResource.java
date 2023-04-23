@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("country")
+@Path("countries")
 public class CountryResource {
     private CountryRepository countryRepository = new CountryRepository();
 
@@ -23,12 +23,12 @@ public class CountryResource {
         return countryRepository.getCountryById(countryId);
     }
 
-//    @GET
-//    @Path("{countryId: [0-9]+}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<CityDto> getAllCitiesByCountry(@Path("countryId") int countryId) {
-//        return countryRepository.getAllCitiesByCountry(countryId);
-//    }
+    @GET
+    @Path("cities/{countryId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CityDto> getAllCitiesByCountry(@PathParam("countryId") int countryId) {
+        return countryRepository.getAllCitiesByCountry(countryId);
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

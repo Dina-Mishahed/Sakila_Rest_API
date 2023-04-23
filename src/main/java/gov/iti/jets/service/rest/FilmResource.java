@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("film")
+@Path("films")
 public class FilmResource {
 
     private FilmRepository filmRepository = new FilmRepository();

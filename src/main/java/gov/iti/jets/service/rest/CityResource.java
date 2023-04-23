@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 
-@Path("city")
+@Path("cities")
 public class CityResource {
     private CityRepository cityRepository = new CityRepository();
 

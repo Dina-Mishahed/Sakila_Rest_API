@@ -2,6 +2,7 @@ package gov.iti.jets.service.rest;
 
 import gov.iti.jets.persistence.repository.CategoryRepository;
 import gov.iti.jets.service.dto.CategoryDto;
+import gov.iti.jets.service.dto.FilmDto;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -10,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("category")
+@Path("categories")
 public class CategoryResource {
     private CategoryRepository categoryRepository = new CategoryRepository();
 
@@ -21,13 +22,20 @@ public class CategoryResource {
         return categoryRepository.getCategoryById(id);
     }
 
-//    public List<FilmDto> getFilmsByCategory(@WebParam(name = "categoryId")int id) {
-//        return categoryRepository.getFilmsByCategory(id);
-//    }
+    @GET
+    @Path(" getFilms/{categoryId: [0-9]+}/getFilms")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<FilmDto> getFilmsByCategory(@PathParam("categoryId")int id) {
+        return categoryRepository.getFilmsByCategory(id);
+    }
 
-//    public List<CategoryDto> searchCategoryByName(@WebParam(name = "categoryName")String name) {
-//        return categoryRepository.searchCategoryByName(name);
-//    }
+
+    @GET
+    @Path("{categoryName: [0-9]+}/searchCategoryByName")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CategoryDto> searchCategoryByName(@PathParam("categoryName")String name) {
+        return categoryRepository.searchCategoryByName(name);
+    }
 
 
     @GET
@@ -36,7 +44,10 @@ public class CategoryResource {
         return categoryRepository.getAllCategories();
     }
 
-//    public int getFilmsByCategoryNo(@WebParam(name = "categoryId")int id) {
-//        return categoryRepository.getFilmsByCategoryNo(id);
-//    }
+    @GET
+    @Path("getFilmsByCategoryNo/{categoryId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int getFilmsByCategoryNo(@PathParam("categoryId")int id) {
+        return categoryRepository.getFilmsByCategoryNo(id);
+    }
 }

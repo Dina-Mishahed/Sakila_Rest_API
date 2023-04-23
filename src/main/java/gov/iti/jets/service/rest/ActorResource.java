@@ -2,6 +2,7 @@ package gov.iti.jets.service.rest;
 
 import gov.iti.jets.persistence.repository.ActorRepository;
 import gov.iti.jets.service.dto.ActorDto;
+import gov.iti.jets.service.dto.FilmActorDto;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -10,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@Path("actor")
+@Path("actors")
 public class ActorResource {
    private ActorRepository actorRepository;
 
@@ -18,12 +19,11 @@ public class ActorResource {
        actorRepository = new ActorRepository();
    }
 
-//    @POST
-//    @Consumes({"application/xml", "application/json"})
-//    public Boolean createActor(String firstName , String lastName) {
-//        ActorDto actorDto = new ActorDto(null,firstName,lastName, new Date());
-//        return actorRepository.createActor(actorDto);
-//    }
+    @POST
+    @Consumes({"application/xml", "application/json"})
+    public Boolean createActor(ActorDto actorDto) {
+        return actorRepository.createActor(actorDto);
+    }
 
 
     @GET
@@ -34,12 +34,20 @@ public class ActorResource {
    }
 
 
-//    public Boolean updateActor(ActorDto actorDto) {
-//        return actorRepository.updateActor(actorDto);
-//    }
-//    public void deleteActor(short id) {
-//        actorRepository.deleteActor(id);
-//    }
+    @PUT
+    @Path("{actorId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Boolean updateActor(@PathParam("actorId")short id,ActorDto actorDto) {
+        return actorRepository.updateActor(id,actorDto);
+    }
+
+    @DELETE
+    @Path("{actorId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteActor(@PathParam("actorId") short id) {
+        actorRepository.deleteActor(id);
+        return "Deleted....";
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -56,10 +64,26 @@ public class ActorResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response updateActor(@PathParam("id")int id, ActorDto newActor)  {
+    public Boolean updateActor(@PathParam("id")int id, ActorDto newActor)  {
        actorRepository.updateActor(id,newActor);
-        return Response.ok().build();
+        return actorRepository.updateActor(id,newActor);
     }
+
+    @GET
+    @Path("{name}/getActorByName")
+//    @Path("{id}/getCategories")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<ActorDto> getActorByName(@PathParam("name")String name){
+       return actorRepository.getActorByName(name);
+    }
+
+    @GET
+    @Path("{id}/getFilms")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<FilmActorDto> getFilmListByActor(@PathParam("id")int id){
+        return actorRepository.getFilmListByActor(id);
+    }
+
+
 }
