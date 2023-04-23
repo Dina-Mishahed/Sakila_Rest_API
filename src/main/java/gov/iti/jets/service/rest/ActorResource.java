@@ -79,7 +79,7 @@ public class ActorResource {
     }
 
     @GET
-    @Path("{id}/getFilms")
+    @Path("getFilms/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<FilmActorDto> getFilmListByActor(@PathParam("id")int id){
         return actorRepository.getFilmListByActor(id);

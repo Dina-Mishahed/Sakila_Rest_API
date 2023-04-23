@@ -66,9 +66,9 @@ public class Film implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film",fetch = FetchType.LAZY)
     private List<FilmCategory> filmCategoryList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film",fetch = FetchType.LAZY)
     private List<FilmActor> filmActorList;
     @JoinColumn(name = "language_id", referencedColumnName = "language_id")
     @ManyToOne(optional = false)
@@ -76,7 +76,7 @@ public class Film implements Serializable {
     @JoinColumn(name = "original_language_id", referencedColumnName = "language_id")
     @ManyToOne
     private Language originalLanguageId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "filmId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "filmId",fetch = FetchType.LAZY)
     private List<Inventory> inventoryList;
 
     public Film() {

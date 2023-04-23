@@ -23,7 +23,7 @@ public class CategoryResource {
     }
 
     @GET
-    @Path(" getFilms/{categoryId: [0-9]+}/getFilms")
+    @Path("getFilms/{categoryId: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<FilmDto> getFilmsByCategory(@PathParam("categoryId")int id) {
         return categoryRepository.getFilmsByCategory(id);
@@ -31,7 +31,7 @@ public class CategoryResource {
 
 
     @GET
-    @Path("{categoryName: [0-9]+}/searchCategoryByName")
+    @Path("searchCategoryByName/{categoryName}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<CategoryDto> searchCategoryByName(@PathParam("categoryName")String name) {
         return categoryRepository.searchCategoryByName(name);

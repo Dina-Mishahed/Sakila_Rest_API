@@ -51,9 +51,9 @@ public class Customer implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId",fetch = FetchType.LAZY)
     private List<Rental> rentalList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId",fetch = FetchType.LAZY)
     private List<Payment> paymentList;
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     @ManyToOne(optional = false)

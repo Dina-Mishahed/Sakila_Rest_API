@@ -2,23 +2,23 @@ package gov.iti.jets.service.rest;
 
 import gov.iti.jets.persistence.repository.FilmRepository;
 import gov.iti.jets.service.dto.FilmDto;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.List;
 
 @Path("films")
 public class FilmResource {
-
     private FilmRepository filmRepository = new FilmRepository();
 
-//    public Boolean createFilm(FilmDto film) {
-//        return filmRepository.createFilm(film);
-//    }
 
+    @POST
+    @Path("addFilm")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Boolean createFilm(FilmDto film) {
+        return filmRepository.createFilm(film);
+    }
 
     @GET
     @Path("{filmId: [0-9]+}")
@@ -27,16 +27,21 @@ public class FilmResource {
         return filmRepository.getFilmById(id);
     }
 
-//    public Boolean updateFilm(@WebParam(name = "film")FilmDto filmDto) {
-//        return filmRepository.updateFilm(filmDto);
-//    }
-//
-//    public void deleteFilm(@WebParam(name = "FilmId")short id) {
-//        filmRepository.deleteFilm(id);
-//    }
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Boolean updateFilm(FilmDto filmDto) {
+        return filmRepository.updateFilm(filmDto);
+    }
+
+    @DELETE
+    @Path("{filmId: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void deleteFilm(@PathParam("filmId")short id) {
+        filmRepository.deleteFilm(id);
+    }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public List<FilmDto> getAllFilms() {
         return filmRepository.getAllFilms();
     }

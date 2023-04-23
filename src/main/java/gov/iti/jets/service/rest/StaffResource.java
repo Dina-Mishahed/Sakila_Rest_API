@@ -29,10 +29,10 @@ public class StaffResource {
     }
 
 
-    @GET
-    @Path("getRentals/{storetId: [0-9]+}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<RentalDto> getRentalListByStaff(int id) {
-        return staffRepository.getRentalListByStaff(id);
-    }
+//    @GET
+//    @Path("getRentals/{storetId: [0-9]+}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<RentalDto> getRentalListByStaff(int id) {
+//        return staffRepository.getRentalListByStaff(id);
+//    }
 }

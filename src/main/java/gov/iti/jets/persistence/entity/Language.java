@@ -36,7 +36,7 @@ public class Language implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "languageId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "languageId",fetch = FetchType.LAZY)
     private List<Film> filmList;
     @OneToMany(mappedBy = "originalLanguageId",fetch = FetchType.EAGER)
     private List<Film> filmList1;

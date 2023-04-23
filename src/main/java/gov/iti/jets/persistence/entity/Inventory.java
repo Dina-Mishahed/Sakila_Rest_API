@@ -38,7 +38,7 @@ public class Inventory implements Serializable {
     @JoinColumn(name = "store_id", referencedColumnName = "store_id")
     @ManyToOne(optional = false)
     private Store storeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventoryId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventoryId",fetch = FetchType.LAZY)
     private List<Rental> rentalList;
 
     public Inventory() {

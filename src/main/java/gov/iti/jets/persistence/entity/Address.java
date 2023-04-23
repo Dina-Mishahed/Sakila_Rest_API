@@ -57,11 +57,11 @@ public class Address implements Serializable {
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     @ManyToOne(optional = false)
     private City cityId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId",fetch = FetchType.LAZY)
     private List<Staff> staffList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId",fetch = FetchType.LAZY)
     private List<Store> storeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId",fetch = FetchType.LAZY)
     private List<Customer> customerList;
 
     public Address() {
