@@ -8,7 +8,6 @@ To run this project, you will need:
 https://github.com/Dina-Mishahed/Sakila_Rest_API
 ```
 2. Update the db.properties file with your MySQL database connection details.
-3. Inline `code` has `back-ticks around` it.
 
 
 
