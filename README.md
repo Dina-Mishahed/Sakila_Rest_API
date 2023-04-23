@@ -13,6 +13,9 @@ https://github.com/Dina-Mishahed/Sakila_Rest_API
 
 
 # API Documentation
+```
+[Postman RESTful API](https://documenter.getpostman.com/view/15142862/2s93Y5PKhB)
+```
 # Technologies Used 
 * Java 17
 * Maven
